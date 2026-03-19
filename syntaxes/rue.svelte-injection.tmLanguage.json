@@ -1,0 +1,44 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Rue Svelte Injection",
+    "scopeName": "source.rue.svelte",
+    "injectionSelector": "L:source.svelte, L:text.html.basic",
+    "patterns": [
+        {
+            "name": "meta.embedded.block.rue",
+            "begin": "(<)(style)([^>]*lang=[\"']rue[\"'][^>]*)(>)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.html"
+                },
+                "3": {
+                    "name": "meta.attribute.html"
+                },
+                "4": {
+                    "name": "punctuation.definition.tag.end.html"
+                }
+            },
+            "end": "(</)(style)(>)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.tag.begin.html"
+                },
+                "2": {
+                    "name": "entity.name.tag.html"
+                },
+                "3": {
+                    "name": "punctuation.definition.tag.end.html"
+                }
+            },
+            "contentName": "source.rue",
+            "patterns": [
+                {
+                    "include": "source.rue"
+                }
+            ]
+        }
+    ]
+}

@@ -21,12 +21,14 @@
 				"extensions": [
 					".rue"
 				],
-				"configuration": "./language-configuration.json", 
+				"configuration": "./language-configuration.json",
 				"icon": {
 					"light": "./icon.png",
 					"dark": "./icon.png"
 				},
-    			"mimetypes": ["text/css"]
+				"mimetypes": [
+					"text/css"
+				]
 			}
 		],
 		"grammars": [
@@ -34,6 +36,17 @@
 				"language": "rue",
 				"scopeName": "source.rue",
 				"path": "./syntaxes/rue.tmLanguage.json"
+			},
+			{
+				"scopeName": "source.rue.svelte",
+				"path": "./syntaxes/rue.svelte-injection.tmLanguage.json",
+				"injectTo": [
+					"source.svelte",
+					"text.html.basic"
+				],
+				"embeddedLanguages": {
+					"source.rue": "rue"
+				}
 			}
 		]
 	}
