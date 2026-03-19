@@ -1,0 +1,40 @@
+{
+	"name": "rue",
+	"displayName": "rue",
+	"description": "CSS with nested styles and advanced variables and computation",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.112.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "rue",
+				"aliases": [
+					"Rue Language",
+					"Rue",
+					"rue"
+				],
+				"extensions": [
+					".rue"
+				],
+				"configuration": "./language-configuration.json", 
+				"icon": {
+					"light": "./icon.png",
+					"dark": "./icon.png"
+				},
+    			"mimetypes": ["text/css"]
+			}
+		],
+		"grammars": [
+			{
+				"language": "rue",
+				"scopeName": "source.rue",
+				"path": "./syntaxes/rue.tmLanguage.json"
+			}
+		]
+	}
+}
