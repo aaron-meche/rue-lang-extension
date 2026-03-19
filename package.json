@@ -35,17 +35,20 @@
 			{
 				"language": "rue",
 				"scopeName": "source.rue",
-				"path": "./syntaxes/rue.tmLanguage.json"
+				"path": "./syntaxes/rue.tmLanguage.json",
+				"embeddedLanguages": {
+					"meta.embedded.block.javascript": "javascript"
+				}
 			},
 			{
 				"scopeName": "source.rue.svelte",
 				"path": "./syntaxes/rue.svelte-injection.tmLanguage.json",
 				"injectTo": [
-					"source.svelte",
-					"text.html.basic"
+					"source.svelte"
 				],
 				"embeddedLanguages": {
-					"source.rue": "rue"
+					"source.rue": "rue",
+					"meta.embedded.block.javascript": "javascript"
 				}
 			}
 		]

@@ -10,6 +10,9 @@
 			"include": "#comments"
 		},
 		{
+			"include": "#func-block"
+		},
+		{
 			"include": "#def-variable"
 		},
 		{
@@ -38,6 +41,36 @@
 				{
 					"name": "comment.line.double-slash.rue",
 					"match": "//.*$"
+				}
+			]
+		},
+		"func-block": {
+			"name": "meta.function.declaration.rue",
+			"begin": "(func)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\s*(\\([^)]*\\))\\s*(\\{)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.declaration.function.rue"
+				},
+				"2": {
+					"name": "entity.name.function.rue"
+				},
+				"3": {
+					"name": "punctuation.definition.parameters.rue"
+				},
+				"4": {
+					"name": "punctuation.section.block.begin.rue"
+				}
+			},
+			"end": "^\\}",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.block.end.rue"
+				}
+			},
+			"contentName": "meta.embedded.block.javascript",
+			"patterns": [
+				{
+					"include": "source.js"
 				}
 			]
 		},
@@ -117,7 +150,7 @@
 		},
 		"rule-block": {
 			"name": "meta.rule-block.rue",
-			"begin": "([^{};/\"']+?)\\s*(\\{)",
+			"begin": "(?!\\s*func\\b)([^{};/\"']+?)\\s*(\\{)",
 			"beginCaptures": {
 				"1": {
 					"name": "meta.selector.rue",
