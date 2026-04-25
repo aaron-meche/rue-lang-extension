@@ -1,65 +1,78 @@
-# rue README
+# Rue Language for VS Code
 
-This is the README for your extension "rue". After writing up a brief description, we recommend including the following sections.
+Syntax highlighting for `.rue` files.
+
+Rue is a small stylesheet language for writing CSS with nested selectors, shared variables, inline nested styles, and JavaScript-powered helper functions.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Syntax highlighting for `.rue` files
+- Highlights nested selector blocks
+- Highlights `def` and `_name_` variable declarations
+- Highlights Rue variable calls like `_accent_`
+- Highlights JavaScript helper functions inside Rue files
+- Highlights CSS properties, values, comments, and selectors
 
-For example if there is an image subfolder under your extension project workspace:
+## Rue Example
 
-\!\[feature X\]\(images/feature-x.png\)
+```rue
+_accent-hue_: 175
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+func getAccent(sat, light) {
+    return "hsl(" + _accent-hue_ + ", " + sat + "%, " + light + "%)"
+}
 
-## Requirements
+def accent: getAccent(75, 50)
+_surface_: getAccent(10, 12)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+.card{
+    background: _surface_
+    color: white
+    border: 1px solid _accent_
 
-## Extension Settings
+    .title{
+        color: _accent_
+        font-weight: 800
+    }
+}
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+.actions { display: flex; gap: .75rem; a { color: _accent_; } }
+```
 
-For example:
+## About Rue Variables
 
-This extension contributes the following settings:
+Rue treats these two declarations as equivalent:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```rue
+def accent: royalblue
+_accent_: royalblue
+```
 
-## Known Issues
+Both create a Rue variable that can be referenced with `_accent_`, and both emit a CSS custom property in the compiled output.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## File Extension
 
-## Release Notes
+Use the `.rue` extension:
 
-Users appreciate release notes as you update your extension.
+```text
+styles.rue
+```
 
-### 1.0.0
+## Recommended Usage
 
-Initial release of ...
+Install this extension alongside the Rue npm package:
 
-### 1.0.1
+```bash
+npm install rue-lang
+```
 
-Fixed issue #.
+Then compile Rue files with your app, build tool, or the included Rue compiler.
 
-### 1.1.0
+## Links
 
-Added features X, Y, and Z.
+- npm: `rue-lang`
+- Repository: `https://github.com/aaron-meche/rue-lang-compiler`
 
----
+## Author
 
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Created by Aaron Meche.
