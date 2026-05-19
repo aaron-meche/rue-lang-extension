@@ -10,6 +10,9 @@
 			"include": "#comments"
 		},
 		{
+			"include": "#raw-js-block"
+		},
+		{
 			"include": "#import-statement"
 		},
 		{
@@ -23,6 +26,9 @@
 		},
 		{
 			"include": "#def-variable"
+		},
+		{
+			"include": "#state-declaration"
 		},
 		{
 			"include": "#at-rules"
@@ -53,6 +59,26 @@
 				{
 					"name": "comment.line.double-slash.rue",
 					"match": "//.*$"
+				}
+			]
+		},
+		"raw-js-block": {
+			"name": "meta.embedded.block.javascript.rue",
+			"begin": "^\\s*(\\{)\\s*$",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.embedded.begin.rue"
+				}
+			},
+			"end": "^\\s*(\\})\\s*$",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.embedded.end.rue"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#rue-js-body"
 				}
 			]
 		},
@@ -128,7 +154,7 @@
 			"begin": "^\\s*(component)\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\s*(\\([^)]*\\))\\s*(\\{)",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.declaration.component.rue"
+					"name": "storage.type.component.rue"
 				},
 				"2": {
 					"name": "entity.name.function.component.rue"
@@ -157,7 +183,7 @@
 			"begin": "^\\s*(Interface)\\s*(\\{)",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.declaration.interface.rue"
+					"name": "storage.type.interface.rue"
 				},
 				"2": {
 					"name": "punctuation.section.block.begin.rue"
@@ -200,7 +226,7 @@
 			},
 			"patterns": [
 				{
-					"include": "#rue-ui-body"
+					"include": "#rue-js-body"
 				}
 			]
 		},
@@ -208,6 +234,12 @@
 			"patterns": [
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#js-arrow-block"
+				},
+				{
+					"include": "#rue-state-reference"
 				},
 				{
 					"include": "#object-string-key"
@@ -224,6 +256,12 @@
 			"patterns": [
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#js-arrow-block"
+				},
+				{
+					"include": "#rue-state-reference"
 				},
 				{
 					"include": "#string"
@@ -257,6 +295,10 @@
 					"match": "\\.\\.\\."
 				},
 				{
+					"name": "variable.language.interface.rue",
+					"match": "\\bInterface\\b"
+				},
+				{
 					"name": "entity.name.function.call.rue",
 					"match": "\\b[A-Za-z_$][A-Za-z0-9_$]*\\b(?=\\s*\\()"
 				},
@@ -277,20 +319,56 @@
 					"match": ","
 				},
 				{
-					"name": "punctuation.section.brackets.rue",
-					"match": "[\\[\\]]"
-				},
-				{
-					"name": "punctuation.section.parens.rue",
-					"match": "[()]"
-				},
-				{
-					"name": "punctuation.section.block.rue",
-					"match": "[{}]"
-				},
-				{
 					"name": "punctuation.separator.key-value.rue",
 					"match": ":"
+				}
+			]
+		},
+		"rue-js-body": {
+			"patterns": [
+				{
+					"include": "#rue-state-reference"
+				},
+				{
+					"include": "source.js"
+				}
+			]
+		},
+		"js-arrow-block": {
+			"name": "meta.embedded.block.javascript.rue meta.arrow-function.rue",
+			"begin": "(\\([^)]*\\)|[A-Za-z_$][A-Za-z0-9_$]*)\\s*(=>)\\s*(\\{)",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.parameters.arrow.rue"
+				},
+				"2": {
+					"name": "storage.type.function.arrow.rue"
+				},
+				"3": {
+					"name": "punctuation.section.embedded.begin.rue"
+				}
+			},
+			"end": "^\\s*(\\})(?=\\s*(?:[,;)}\\]]|$))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.embedded.end.rue"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#rue-js-body"
+				}
+			]
+		},
+		"rue-state-reference": {
+			"patterns": [
+				{
+					"name": "variable.other.state.rue",
+					"match": "@[A-Za-z_$][A-Za-z0-9_$]*(?=\\s*(?:\\+\\+|--))"
+				},
+				{
+					"name": "variable.other.state.rue",
+					"match": "@[A-Za-z_$][A-Za-z0-9_$]*"
 				}
 			]
 		},
@@ -305,6 +383,27 @@
 					"name": "punctuation.separator.key-value.rue"
 				}
 			}
+		},
+		"state-declaration": {
+			"name": "meta.state.declaration.rue",
+			"begin": "^\\s*(@state)\\s+([A-Za-z_$][A-Za-z0-9_$]*)\\s*(=)\\s*",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.declaration.state.rue"
+				},
+				"2": {
+					"name": "variable.other.state.rue"
+				},
+				"3": {
+					"name": "keyword.operator.assignment.rue"
+				}
+			},
+			"end": "$",
+			"patterns": [
+				{
+					"include": "#rue-js-body"
+				}
+			]
 		},
 		"def-variable": {
 			"name": "meta.def.rue",
@@ -472,6 +571,12 @@
 			"patterns": [
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#js-arrow-block"
+				},
+				{
+					"include": "#rue-state-reference"
 				},
 				{
 					"include": "#variable-call"
